@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import API_BASE_URL from "../Config";
 
 const UserPicks = () => {
   const [picks, setPicks] = useState({});
@@ -14,7 +15,7 @@ const UserPicks = () => {
   const fetchCurrentWeek = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://127.0.0.1:5000/get_current_week", {
+      const res = await fetch(`${API_BASE_URL}/get_current_week`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -29,7 +30,7 @@ const UserPicks = () => {
   const fetchUserPicks = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://127.0.0.1:5000/get_user_picks", {
+      const response = await fetch(`${API_BASE_URL}/get_user_picks`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

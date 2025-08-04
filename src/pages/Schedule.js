@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import API_BASE_URL from "../Config";
 
 const Schedule = () => {
     const [schedule, setSchedule] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/get_weekly_schedule")
+        fetch(`${API_BASE_URL}/get_weekly_schedule`,)
             .then((response) => response.json())
             .then((data) => {
                 if (data.schedule) {

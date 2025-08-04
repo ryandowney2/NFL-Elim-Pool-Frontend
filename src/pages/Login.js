@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
+import API_BASE_URL from "../Config";
 
 const Login = () => {
   const { setUser } = useContext(AuthContext);
@@ -12,7 +13,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("http://127.0.0.1:5000/login", {
+      const response = await axios.post(`${API_BASE_URL}/login`, {
         username,
         password,
       });

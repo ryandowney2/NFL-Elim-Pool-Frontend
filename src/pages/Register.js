@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../App";
 import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../Config";
 
 const Register = () => {
   const { setUser } = useContext(AuthContext);
@@ -13,14 +14,14 @@ const Register = () => {
 
   const handleRegister = async () => {
     try {
-      await axios.post("http://127.0.0.1:5000/register", {
+      await axios.post(`${API_BASE_URL}/register`, {
         email,
         username,
         password,
       });
 
       // ✅ Automatically log in after registration
-      const loginResponse = await axios.post("http://127.0.0.1:5000/login", {
+      const loginResponse = await axios.post(`${API_BASE_URL}/login`, {
         username,
         password,
       });

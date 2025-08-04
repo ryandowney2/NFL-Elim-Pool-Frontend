@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../App";
+import API_BASE_URL from "../Config";
 
 const PoolWeekPicks = () => {
   const { user } = useContext(AuthContext);
@@ -14,7 +15,7 @@ const PoolWeekPicks = () => {
   const fetchPicks = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("http://127.0.0.1:5000/get_current_pool_picks", {
+      const response = await axios.get(`${API_BASE_URL}/get_current_pool_picks`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPoolPicks(response.data.results);

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../App";
+import API_BASE_URL from "../Config";
 
 const Pools = () => {
   const { user } = useContext(AuthContext);
@@ -25,7 +26,7 @@ const Pools = () => {
   const fetchPools = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("http://127.0.0.1:5000/get_pools", {
+      const response = await axios.post(`${API_BASE_URL}/get_pools`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPools(response.data.pools || []);
@@ -42,7 +43,7 @@ const Pools = () => {
     }
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/create_pool",
+        `${API_BASE_URL}/create_pool`,
         { name: poolName, password: poolPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -61,7 +62,7 @@ const Pools = () => {
     }
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/join_pool",
+        `${API_BASE_URL}/join_pool`,
         { pool_name: joinName, password: joinPassword },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -81,7 +82,7 @@ const Pools = () => {
     }
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/get_pool_users",
+        `${API_BASE_URL}/get_pool_users`,
         { pool_name: pool },
         { headers: { Authorization: `Bearer ${token}` } }
       );

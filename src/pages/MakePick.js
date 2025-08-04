@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API_BASE_URL from "../Config";
 
 const MakePick = () => {
   const [schedule, setSchedule] = useState([]);
@@ -15,7 +16,7 @@ const MakePick = () => {
 
   const fetchSchedule = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/get_weekly_schedule");
+      const response = await axios.post(`${API_BASE_URL}/get_weekly_schedule`);
       const sorted = response.data.schedule.sort((a, b) =>
         new Date(a.kickoff_est_raw) - new Date(b.kickoff_est_raw)
       );
@@ -29,7 +30,7 @@ const MakePick = () => {
   const fetchPools = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await axios.get("http://127.0.0.1:5000/get_pools", {
+      const response = await axios.get(`${API_BASE_URL}/get_pools`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setPools(response.data.pools);
@@ -47,7 +48,7 @@ const MakePick = () => {
     const token = localStorage.getItem("token");
     try {
       const response = await axios.post(
-        "http://127.0.0.1:5000/make_pick",
+        `${API_BASE_URL}/make_pick`,
         { pool_name: selectedPool, team },
         { headers: { Authorization: `Bearer ${token}` } }
       );

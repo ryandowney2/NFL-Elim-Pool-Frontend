@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../App";
+import API_BASE_URL from "../Config";
 
 const Dashboard = () => {
   const { user } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const Dashboard = () => {
   const handleEvaluateWeek = async () => {
     const token = localStorage.getItem("token");
     try {
-      const response = await fetch("http://127.0.0.1:5000/evaluate_week", {
+      const response = await fetch(`${API_BASE_URL}/evaluate_week`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
