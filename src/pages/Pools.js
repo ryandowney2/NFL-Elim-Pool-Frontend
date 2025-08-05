@@ -24,16 +24,19 @@ const Pools = () => {
   }, [user]);
 
   const fetchPools = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      const response = await axios.post(`${API_BASE_URL}/get_pools`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setPools(response.data.pools || []);
-    } catch (error) {
-      setMessage("❌ Failed to fetch pools.");
-    }
+   const token = localStorage.getItem("token");
+   try {
+    const response = await axios.post(
+      `${API_BASE_URL}/get_pools`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    setPools(response.data.pools || []);
+   } catch (error) {
+     setMessage("❌ Failed to fetch pools.");
+   }
   };
+
 
   const handleCreatePool = async () => {
     const token = localStorage.getItem("token");
