@@ -24,19 +24,16 @@ const Pools = () => {
   }, [user]);
 
   const fetchPools = async () => {
-   const token = localStorage.getItem("token");
-   try {
-    const response = await axios.get(
-      `${API_BASE_URL}/get_pools`,
-      {},
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    setPools(response.data.pools || []);
-   } catch (error) {
-     setMessage("❌ Failed to fetch pools.");
-   }
+    const token = localStorage.getItem("token");
+    try {
+      const response = await axios.get(`${API_BASE_URL}/get_pools`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setPools(response.data.pools || []);
+    } catch (error) {
+      setMessage("❌ Failed to fetch pools.");
+    }
   };
-
 
   const handleCreatePool = async () => {
     const token = localStorage.getItem("token");
@@ -53,7 +50,9 @@ const Pools = () => {
       setMessage(`✅ ${response.data.message}`);
       fetchPools();
     } catch (error) {
-      setMessage(`❌ ${error.response?.data?.error || "Failed to create pool."}`);
+      setMessage(
+        `❌ ${error.response?.data?.error || "Failed to create pool."}`
+      );
     }
   };
 
@@ -72,7 +71,9 @@ const Pools = () => {
       setMessage(`✅ ${response.data.message}`);
       fetchPools();
     } catch (error) {
-      setMessage(`❌ ${error.response?.data?.error || "Failed to join pool."}`);
+      setMessage(
+        `❌ ${error.response?.data?.error || "Failed to join pool."}`
+      );
     }
   };
 
@@ -158,19 +159,37 @@ const Pools = () => {
                 >
                   {selectedPool === pool ? "🔽 " : "▶️ "} {pool}
                   {selectedPool === pool && (
-                    <span style={{ marginLeft: "8px", fontSize: "14px", color: "green" }}>
-                      ({poolUsers.filter(u => u.losses < 2).length} players remaining)
+                    <span
+                      style={{
+                        marginLeft: "8px",
+                        fontSize: "14px",
+                        color: "green",
+                      }}
+                    >
+                      (
+                      {
+                        poolUsers.filter((u) => u.losses < 2).length
+                      }{" "}
+                      players remaining)
                     </span>
                   )}
                 </button>
 
                 {selectedPool === pool && (
-                  <ul style={{ marginTop: "10px", paddingLeft: "20px", textAlign: "left" }}>
+                  <ul
+                    style={{
+                      marginTop: "10px",
+                      paddingLeft: "20px",
+                      textAlign: "left",
+                    }}
+                  >
                     {poolUsers.length > 0 ? (
                       poolUsers.map((user, idx) => (
                         <li key={idx}>
-                          {user.username}{' '}
-                          {user.losses === 1 && <span style={{ color: "red" }}>❌</span>}
+                          {user.username}{" "}
+                          {user.losses === 1 && (
+                            <span style={{ color: "red" }}>❌</span>
+                          )}
                           {user.losses >= 2 && (
                             <span style={{ color: "red" }}>
                               🏴 Eliminated in Week {user.elimination_week}
@@ -196,9 +215,33 @@ const Pools = () => {
 
 const styles = {
   container: { textAlign: "center", padding: "20px" },
-  section: { margin: "20px auto", padding: "15px", border: "1px solid #ccc", borderRadius: "8px", maxWidth: "400px" },
-  button: { padding: "10px 20px", fontSize: "16px", marginTop: "10px", cursor: "pointer", backgroundColor: "blue", color: "white", border: "none", borderRadius: "5px" },
-  poolButton: { padding: "10px", fontSize: "16px", backgroundColor: "lightgray", border: "1px solid #ccc", borderRadius: "5px", width: "100%", cursor: "pointer", textAlign: "left" },
+  section: {
+    margin: "20px auto",
+    padding: "15px",
+    border: "1px solid #ccc",
+    borderRadius: "8px",
+    maxWidth: "400px",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    marginTop: "10px",
+    cursor: "pointer",
+    backgroundColor: "blue",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+  },
+  poolButton: {
+    padding: "10px",
+    fontSize: "16px",
+    backgroundColor: "lightgray",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    width: "100%",
+    cursor: "pointer",
+    textAlign: "left",
+  },
 };
 
 export default Pools;
