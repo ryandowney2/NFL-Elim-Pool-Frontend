@@ -26,7 +26,7 @@ const Pools = () => {
   const fetchPools = async () => {
    const token = localStorage.getItem("token");
    try {
-    const response = await axios.post(
+    const response = await axios.get(
       `${API_BASE_URL}/get_pools`,
       {},
       { headers: { Authorization: `Bearer ${token}` } }

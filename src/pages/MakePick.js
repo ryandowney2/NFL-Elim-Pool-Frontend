@@ -16,7 +16,7 @@ const MakePick = () => {
 
   const fetchSchedule = async () => {
     try {
-      const response = await axios.post(`${API_BASE_URL}/get_weekly_schedule`);
+      const response = await axios.get(`${API_BASE_URL}/get_weekly_schedule`);
       const sorted = response.data.schedule.sort((a, b) =>
         new Date(a.kickoff_est_raw) - new Date(b.kickoff_est_raw)
       );
