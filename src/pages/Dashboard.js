@@ -54,7 +54,7 @@ const Dashboard = () => {
           <button style={styles.button}>👥 Weekly Pool Picks</button>
         </Link>
 
-        {user === "help12" && (
+        {user === "ryandowney2" && (
           <div style={styles.adminSection}>
             <h3>⚙️ Admin Controls</h3>
             <p style={{ color: "red" }}>⚠️ Only click after all games are final!</p>
